@@ -18,6 +18,7 @@ namespace FcBaseball.Test
         public static HomePage _homePage;
         public static KrepselisPage _krepselisPage;
         public static ProductPage _productPage;
+        public static AtsiskaitymasPage _atsiskaitymasPage;
         
 
         [OneTimeSetUp]
@@ -27,6 +28,7 @@ namespace FcBaseball.Test
             _homePage = new HomePage(driver);
             _krepselisPage = new KrepselisPage(driver);
             _productPage = new ProductPage(driver);
+            _atsiskaitymasPage = new AtsiskaitymasPage(driver);
         }
 
         [TearDown]

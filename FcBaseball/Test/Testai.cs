@@ -9,7 +9,6 @@ namespace FcBaseball.Test
 {
     public class Testai : BaseTest
     {
-        //sitas pabaigtas
         [Test]
         public void KrepselioSumosTestas()
         {
@@ -26,9 +25,8 @@ namespace FcBaseball.Test
                 .Lyginimas("63.98");
         }
 
-        //sitas pabaigtas
         [Test]
-        public void ZinutesPasirodymoTestas()
+        public void ZinutesPasirodymoTest()
         {
             _homePage.NavigateToDefaultPage()
                 .FocusOnFrame()
@@ -41,9 +39,8 @@ namespace FcBaseball.Test
                 .CheckText();
         }
 
-        //sitas pabaigtas
         [Test]
-        public void PopUpPasirodymoTestas()
+        public void AlertPasirodymoTest()
         {
             _homePage.NavigateToDefaultPage()
                 .FocusOnFrame()
@@ -55,7 +52,6 @@ namespace FcBaseball.Test
                 .CheckAlert();
         }
 
-        //NEVEIKIA sitas neranda button "apmoketi" ir nerando klaidos zinutes boxo
         [Test]
         public void KlaidosTekstoTest()
         {
@@ -65,13 +61,30 @@ namespace FcBaseball.Test
                 .SwitchBack()
                 .ButtonLunaClick()
                 .ButtonKrepselisClick()
-                .AtsiskaitymasButtonClick()
-                .LaukelisClick()
-                .ButtonToWait()
+                .AtsiskaitymasButtonClick();
+            _atsiskaitymasPage.NavigateToDefaultPage()
+                .Wait()
+                .WaitForButton()
                 .ApmoketiButtonClick()
-                .BoxToWait()
                 .ZinutesTekstoTikrinimas();
+        }
 
+        [TestCase("vardasETApavyzdys.lt", TestName = "Netinkamas email formatas")]
+        public void TinkamoEmailTest(string elpastas)
+        {
+            _productPage.NavigateToDefaultPage()
+                .FocusOnFrame()
+                .NewsLetterClose()
+                .SwitchBack()
+                .PasirinktiDydiPagalValue("M")
+                .MarskineliaiPirkti();
+            _atsiskaitymasPage.NavigateToDefaultPage()
+                .IvestiEmail(elpastas)
+                .Wait()
+                .WaitForButton()
+                .ApmoketiButtonClick()
+                .Wait()
+                .PatikrintiEmail();
         }
 
     }

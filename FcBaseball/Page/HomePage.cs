@@ -21,14 +21,8 @@ namespace FcBaseball.Page
         private IWebElement NewsletterButton => Driver.FindElement(By.XPath("/html/body/div[1]/div/div/div[1]/button"));
         private IWebElement PerziuretiKrepseli => Driver.FindElement(By.LinkText("Peržiūrėti krepšelį"));
         private IWebElement ProductMarskineliai => Driver.FindElement(By.XPath("/html/body/div/div/div/main/article/div/div/div/div/div/div/div/div/div/div/ul/li[2]/div[2]/a"));
-        private const string KlaidosPranesimas = "yra būtinas laukelis";
-        private IWebElement VardoLaukelis => Driver.FindElement(By.Id("billing_first_name"));
-        private IWebElement PavardesLaukelis => Driver.FindElement(By.Id("billing_last_name"));
-        private IWebElement TelefonoLaukelis => Driver.FindElement(By.Id("billing_phone"));
-        private IWebElement ElPastoLaukelis => Driver.FindElement(By.Id("billing_email"));
-        private IWebElement KlaidosLaukas => Driver.FindElement(By.CssSelector(".woocommerce-error"));
         private IWebElement MenuAtsiskaitymas => Driver.FindElement(By.XPath("//*[@id='menu-item-32']"));
-        private IWebElement ButtonApmoketi => Driver.FindElement(By.Id("place_order"));
+        
         public HomePage(IWebDriver webdriver) : base(webdriver)
         {
           
@@ -90,46 +84,10 @@ namespace FcBaseball.Page
             ProductMarskineliai.Click();
             return this;
         }
-        
-        //Sis metodas priklauso AtsiskaitymasPage klasei
-        public HomePage ZinutesTekstoTikrinimas()
-        {
-            if (VardoLaukelis.Text == "" || PavardesLaukelis.Text == "" || TelefonoLaukelis.Text == "" || ElPastoLaukelis.Text == "")
-            {
-                Assert.IsTrue(KlaidosLaukas.Text.Contains(KlaidosPranesimas), "Klaidos pranesimas neatsirado");
-            }
-            return this;
-        }
+
         public HomePage AtsiskaitymasButtonClick()
         {
             MenuAtsiskaitymas.Click();
-            return this;
-        }
-        public HomePage ApmoketiButtonClick()
-        {
-            ButtonApmoketi.Click();
-            return this;
-        }
-
-        public HomePage BoxToWait()
-        {
-            WebDriverWait w = new WebDriverWait(Driver, TimeSpan.FromSeconds(20));
-            w.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='post-8']/div/div/form/div[1]/ul")));
-            return this;
-        }
-
-        public HomePage LaukelisClick()
-        {
-            VardoLaukelis.Click();
-            Actions action = new Actions(Driver);
-            action.SendKeys(Keys.Enter);
-            action.Build();
-            return this;
-        }
-        public HomePage ButtonToWait()
-        {
-            WebDriverWait w = new WebDriverWait(Driver, TimeSpan.FromSeconds(20));
-            w.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//*[@id='place_order']")));
             return this;
         }
 
